@@ -1,0 +1,23 @@
+@import "./variables";
+
+
+.App {
+  background: $background-color;
+  min-height: 100vh;
+  transition: background 200ms linear;
+  color: $color;  
+  display: flex;
+  align-items: center;
+
+  .container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+
+  .page-wrap {
+    width: 400px;
+    z-index: 10;
+  }
+}

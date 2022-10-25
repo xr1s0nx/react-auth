@@ -1,0 +1,14 @@
+.App[data-theme='light'] {
+  --background-color: #fff;
+  --color: #000;
+}
+
+.App[data-theme='dark'] {
+  --background-color: #000;
+  --color: #fff;
+}
+
+$background-color: var(--background-color);
+$color: var(--color);
+$border-color: #4461F2;
+
