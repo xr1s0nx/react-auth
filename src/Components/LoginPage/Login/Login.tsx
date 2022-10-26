@@ -18,24 +18,26 @@ const Login = () => {
       dispatch(changePasswordText(passwordText));
    };
 
+   const [passType, changePassType] = React.useState("password");
+
    return (
-      <motion.div
-         initial={{ x: "200px", opacity: 0 }}
-         animate={{ x: 0, opacity: 1 }}
-         exit={{
-            x: "-200px",
-            opacity: 0,
-            transitionEnd: {
-               display: "none",
-            },
-         }}
-         transition={{ duration: 0.5 }}
-         className={"page"}
-      >
-         <Input type="email" placeholder="Enter Email" value={loginText} changeValue={changeLoginValue} />
-         <Input type="password" placeholder="Your Password" value={passwordText} changeValue={changePasswordValue} />
+      <div className={"page"}>
+         <Input
+            type="email"
+            placeholder="Enter Email"
+            value={loginText}
+            changeValue={changeLoginValue}
+            buttonFunc={() => dispatch(changeLoginText(""))}
+         />
+         <Input
+            type={passType}
+            placeholder="Your Password"
+            value={passwordText}
+            changeValue={changePasswordValue}
+            buttonFunc={() => changePassType(passType === "password" ? "text" : "password")}
+         />
          <ButtonSend text={"Sign In"} />
-      </motion.div>
+      </div>
    );
 };
 

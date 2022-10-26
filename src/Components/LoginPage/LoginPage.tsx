@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login/Login";
 import Registration from "./Registration/Registration";
 import styles from "./LoginPage.module.scss";
@@ -10,19 +10,24 @@ import { changeLoginText, changePasswordConfirmValue, changePasswordText } from 
 
 const LoginPage = () => {
    const location = useLocation();
+   const navigate = useNavigate();
 
    const [nextPage, changePage] = React.useState("");
    const dispatch = useDispatch();
 
-   React.useLayoutEffect(() => {
-      const nowPage = location.pathname.substring(1);
-      changePage(nowPage.toLowerCase() !== "sign/login" ? "Sign In" : "Registration");
-      document.title = nowPage.toLowerCase() === "sign/login" ? "App | Sign In" : "App | Registration"
-      dispatch(changeLoginText(''));
-      dispatch(changePasswordConfirmValue(''));
-      dispatch(changePasswordText(''));
-   }, [location]);
+   React.useEffect(() => {
+      navigate("/sign?type=login");
+      console.log(location.search.substring(1));
+   }, []);
 
+   React.useLayoutEffect(() => {
+      const nowPage = location.search.substring(1);
+      changePage(nowPage.toLowerCase() !== "type=login" ? "Sign In" : "Registration");
+      document.title = nowPage.toLowerCase() === "type=login" ? "App | Sign In" : "App | Registration";
+      dispatch(changeLoginText(""));
+      dispatch(changePasswordConfirmValue(""));
+      dispatch(changePasswordText(""));
+   }, [location]);
 
    return (
       <div className={styles.loginPage}>
@@ -36,7 +41,7 @@ const LoginPage = () => {
             <h1 className={styles.title}>Sign In to Recharge Direct</h1>
             <p className={styles.text}>
                if you {nextPage.toLowerCase() !== "sign in" ? `don't an` : "have"} account you can{" "}
-               <Link to={nextPage.toLowerCase() === "sign in" ? "/sign/login" : "/sign/registration"}>{nextPage} here!</Link>
+               <Link to={nextPage.toLowerCase() === "sign in" ? "/sign?type=login" : "/sign?type=registration"}>{nextPage} here!</Link>
             </p>
          </motion.div>
          <div className={styles.imageWrap}>
@@ -44,11 +49,41 @@ const LoginPage = () => {
          </div>
 
          <div className="page-wrap">
+            <nav className={styles.nav}>
+               <Link
+                  to={"/sign?type=login"}
+                  className={location.search.substring(1) === "type=login" ? `${styles.navBtn} ${styles.active}` : styles.navBtn}
+               >
+                  Login
+               </Link>
+               <Link
+                  to={"/sign?type=registration"}
+                  className={location.search.substring(1) === "type=registration" ? `${styles.navBtn} ${styles.active}` : styles.navBtn}
+               >
+                  Registration
+               </Link>
+            </nav>
             <AnimatePresence mode="wait">
-               <Routes>
-                  <Route path={"/login"} element={<Login />} />
-                  <Route path={"/registration"} element={<Registration />} />
-               </Routes>
+               {location.search.substring(1) === "type=login" ? (
+                  <motion.div
+                     key={"login"}
+                     initial={{ x: "-50%", opacity: 0 }}
+                     animate={{ x: 0, opacity: 1 }}
+                     exit={{ x: "-50%", opacity: 0, transition: { duration: 0.3 } }}
+                  >
+                     <Login />
+                  </motion.div>
+               ) : (
+                  <motion.div
+                     key={"registrtion"}
+                     initial={{ x: "50%", opacity: 0 }}
+                     animate={{ x: 0, opacity: 1 }}
+                     exit={{ x: "50%", opacity: 0, transition: { duration: 0.3 } }}
+                     transition={{ delay: 0 }}
+                  >
+                     <Registration />
+                  </motion.div>
+               )}
             </AnimatePresence>
          </div>
       </div>

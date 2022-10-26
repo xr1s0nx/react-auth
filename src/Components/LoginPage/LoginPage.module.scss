@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .loginPage {
    display: flex;
    align-items: center;
@@ -22,7 +24,7 @@
          width: 310px;
 
          a {
-            color: #4461F2;
+            color: #4461f2;
             font-weight: 600;
          }
       }
@@ -65,6 +67,23 @@
          left: -200px;
          z-index: 1;
          width: 720px;
+      }
+   }
+
+   .nav {
+      width: 225px;
+      margin: 0 auto 150px auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   .navBtn {
+      color: $color;
+      transition: 0.3s linear;
+      font-weight: 600;
+      &.active {
+         color: #4461f2;
       }
    }
 }
