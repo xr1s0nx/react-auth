@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { changeLoginText, changePasswordText, changePasswordConfirmValue } from "../../../redux/Slices/LoginPageSlice";
+import { changeLoginText, changePasswordText, changePasswordConfirmValue, registrationBtnClick } from "../../../redux/Slices/LoginPageSlice";
 import Input from "../Input/Input";
 import ButtonSend from "../ButtonSend/ButtonSend";
 
@@ -24,12 +24,36 @@ const Registration = () => {
       dispatch(changePasswordConfirmValue(passwordText));
    };
 
+   const [passVisible, changePassVisible] = React.useState("password");
+   const [confirmVisible, changeConfirmVisible] = React.useState("password");
+   const regBtnClick = async () => {
+      await dispatch(registrationBtnClick())
+   }
+
+   const loginError = useSelector((state: RootState) => state.LoginPageSlice.emailError);
+   const passwordError = useSelector((state: RootState) => state.LoginPageSlice.passwordError);
+   const confirmPasswordError = useSelector((state: RootState) => state.LoginPageSlice.confirmPasswordError);
+
    return (
       <div className={"page"}>
-         <Input type="email" placeholder="Enter Email" value={loginText} changeValue={changeValue} />
-         <Input type="password" placeholder="Your Password" value={passwordText} changeValue={changePasswordValue} />
-         <Input type="password" placeholder="Confirm Password" value={passwordConfirmText} changeValue={changeConfirmValue} />
-         <ButtonSend text="Registration" />
+         <Input errorStatus={loginError} type="email" placeholder="Enter Email" value={loginText} changeValue={changeValue} buttonFunc={() => dispatch(changeLoginText(""))} />
+         <Input
+            type={passVisible}
+            placeholder="Your Password"
+            value={passwordText}
+            changeValue={changePasswordValue}
+            buttonFunc={() => changePassVisible(passVisible === "password" ? "text" : "password")}
+            errorStatus={passwordError}
+         />
+         <Input
+            type={confirmVisible}
+            placeholder="Confirm Password"
+            value={passwordConfirmText}
+            changeValue={changeConfirmValue}
+            buttonFunc={() => changeConfirmVisible(confirmVisible === "password" ? "text" : "password")}
+            errorStatus={confirmPasswordError}
+         />
+         <ButtonSend text="Registration" onClickFunc={regBtnClick}/>
       </div>
    );
 };

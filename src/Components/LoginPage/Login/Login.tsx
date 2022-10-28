@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { changeLoginText, changePasswordText } from "../../../redux/Slices/LoginPageSlice";
+import { changeLoginText, changePasswordText, loginBtnClick } from "../../../redux/Slices/LoginPageSlice";
 import ButtonSend from "../ButtonSend/ButtonSend";
 
 const Login = () => {
@@ -19,6 +19,12 @@ const Login = () => {
    };
 
    const [passType, changePassType] = React.useState("password");
+   const loginError = useSelector((state: RootState) => state.LoginPageSlice.emailError);
+   const passwordError = useSelector((state: RootState) => state.LoginPageSlice.passwordError);
+
+   const sendBtn = () => {
+      dispatch(loginBtnClick());
+   };
 
    return (
       <div className={"page"}>
@@ -28,6 +34,7 @@ const Login = () => {
             value={loginText}
             changeValue={changeLoginValue}
             buttonFunc={() => dispatch(changeLoginText(""))}
+            errorStatus={loginError}
          />
          <Input
             type={passType}
@@ -35,8 +42,9 @@ const Login = () => {
             value={passwordText}
             changeValue={changePasswordValue}
             buttonFunc={() => changePassType(passType === "password" ? "text" : "password")}
+            errorStatus={passwordError}
          />
-         <ButtonSend text={"Sign In"} />
+         <ButtonSend text={"Sign In"} onClickFunc={sendBtn} />
       </div>
    );
 };

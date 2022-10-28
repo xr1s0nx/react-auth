@@ -7,7 +7,8 @@ import image from "../../assets/images/loginImg.png";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { changeLoginText, changePasswordConfirmValue, changePasswordText } from "../../redux/Slices/LoginPageSlice";
-
+import MainImg from "./MainImg";
+import LoginPageNav from "./LoginPageNav";
 const LoginPage = () => {
    const location = useLocation();
    const navigate = useNavigate();
@@ -17,7 +18,6 @@ const LoginPage = () => {
 
    React.useEffect(() => {
       navigate("/sign?type=login");
-      console.log(location.search.substring(1));
    }, []);
 
    React.useLayoutEffect(() => {
@@ -45,24 +45,11 @@ const LoginPage = () => {
             </p>
          </motion.div>
          <div className={styles.imageWrap}>
-            <img src={image} alt="" />
+            <MainImg image={image} />
          </div>
 
          <div className="page-wrap">
-            <nav className={styles.nav}>
-               <Link
-                  to={"/sign?type=login"}
-                  className={location.search.substring(1) === "type=login" ? `${styles.navBtn} ${styles.active}` : styles.navBtn}
-               >
-                  Login
-               </Link>
-               <Link
-                  to={"/sign?type=registration"}
-                  className={location.search.substring(1) === "type=registration" ? `${styles.navBtn} ${styles.active}` : styles.navBtn}
-               >
-                  Registration
-               </Link>
-            </nav>
+            <LoginPageNav styles={styles} />
             <AnimatePresence mode="wait">
                {location.search.substring(1) === "type=login" ? (
                   <motion.div

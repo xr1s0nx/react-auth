@@ -67,15 +67,34 @@
          left: -200px;
          z-index: 1;
          width: 720px;
+         transition: 0.1s linear;
       }
    }
 
    .nav {
       width: 225px;
-      margin: 0 auto 150px auto;
+      margin: 0 auto 5px auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      
+   }
+
+   .line {
+      position: relative;
+      width: 100%;
+      max-width: 225px;
+      margin: 0 auto;
+      margin-bottom: 145px;
+      height: 2px;
+
+      .activeUnderLine {
+         display: block;
+         height: 2px;
+         border-radius: 2px;
+         background: #4461f2;
+         transition: 0.3s;
+      }
    }
 
    .navBtn {

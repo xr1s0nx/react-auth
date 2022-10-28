@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './ButtonSend.module.scss'
 
-const ButtonSend = ({text}: {text: string}) => {
+type CallbackFunction = () => void;
+
+const ButtonSend = ({text, onClickFunc}: {text: string, onClickFunc: CallbackFunction}) => {
   return (
-    <button className={styles.button}>{text}</button>
+    <button onClick={() => onClickFunc()} className={styles.button}>{text}</button>
   )
 }
 
