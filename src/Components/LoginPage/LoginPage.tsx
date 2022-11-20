@@ -18,6 +18,8 @@ const LoginPage = () => {
 
    React.useEffect(() => {
       navigate("/sign?type=login");
+
+      console.log(performance.navigation.type);
    }, []);
 
    React.useLayoutEffect(() => {

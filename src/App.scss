@@ -14,12 +14,22 @@
     max-width: 1500px;
     margin: 0 auto;
     padding: 0 10px;
+    position: relative;
   }
 
   .page-wrap {
     width: 400px;
     min-height: 650px;
     z-index: 10;
+  }
+
+  .changeTheme-btn {
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
   }
 }
 

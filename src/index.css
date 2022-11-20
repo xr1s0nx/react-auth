@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -6,13 +6,18 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   transition: background 200ms linear;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   scroll-behavior: smooth;
   background: #000;
   overflow-x: hidden;
+}
+
+button {
+  font-family: "Montserrat", sans-serif;
 }
 
 a {
