@@ -11,6 +11,7 @@ export interface LoginState {
   errorText: string;
   mousePos: { x: number; y: number };
   theme: string;
+  registrationRequest: boolean;
 }
 
 const initialState: LoginState = {
@@ -24,6 +25,7 @@ const initialState: LoginState = {
   errorText: "",
   mousePos: { x: 0, y: 0 },
   theme: "dark",
+  registrationRequest: false,
 };
 
 export const loginSlice = createSlice({
@@ -74,6 +76,7 @@ export const loginSlice = createSlice({
       } else {
         state.emailError = false;
         state.passwordError = false;
+        state.registrationRequest = true;
       }
     },
     mouseMove: (state, action) => {
@@ -84,6 +87,9 @@ export const loginSlice = createSlice({
     },
     changeTheme: (state, action: PayloadAction<string>) => {
       state.theme = action.payload;
+    },
+    changeRegReq: (state, action: PayloadAction<boolean>) => {
+      state.registrationRequest = action.payload;
     },
   },
 });
@@ -97,5 +103,6 @@ export const {
   mouseMove,
   registrationBtnClick,
   changeTheme,
+  changeRegReq,
 } = loginSlice.actions;
 export default loginSlice.reducer;

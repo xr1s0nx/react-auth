@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
 
   React.useLayoutEffect(() => {
-    localStorage.setItem("app-theme", theme);
+    localStorage.setItem("app-theme", theme)
   }, [theme]);
 
   React.useEffect(() => {

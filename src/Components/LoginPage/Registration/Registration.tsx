@@ -5,6 +5,7 @@ import { RootState } from "../../../redux/store";
 import { changeLoginText, changePasswordText, changePasswordConfirmValue, registrationBtnClick } from "../../../redux/Slices/LoginPageSlice";
 import Input from "../Input/Input";
 import ButtonSend from "../ButtonSend/ButtonSend";
+import axios from 'axios';
 
 const Registration = () => {
    const dispatch = useDispatch();
@@ -33,6 +34,27 @@ const Registration = () => {
    const loginError = useSelector((state: RootState) => state.LoginPageSlice.emailError);
    const passwordError = useSelector((state: RootState) => state.LoginPageSlice.passwordError);
    const confirmPasswordError = useSelector((state: RootState) => state.LoginPageSlice.confirmPasswordError);
+   const regRequest = useSelector((state: RootState) => state.LoginPageSlice.registrationRequest);
+   const email = useSelector((state: RootState) => state.LoginPageSlice.loginText);
+   const password = useSelector((state: RootState) => state.LoginPageSlice.loginPassword);
+
+
+   React.useEffect(() => {
+      if(regRequest) {
+         axios.post('http://localhost:5000/api/registration', {
+            email,
+            password
+         }).then(response => {
+            if (response.data.success) {
+               dispatch(changeLoginText(''));
+               dispatch(changePasswordText(''));
+               dispatch(changePasswordConfirmValue(''));
+            } else {
+               alert('Error !')
+            }
+         })
+      }
+   }, [regRequest])
 
    return (
       <div className={"page"}>
